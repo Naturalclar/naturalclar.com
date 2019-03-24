@@ -39,10 +39,9 @@ jobs:
             - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}
       - run:
           name: Set up Git Config Email
-          command: git config --global user.email {{ .Environment.GIT_CONFIG_EMAIL }}
-      - run:
-          name: Set up Git Config Name
-          command: git config --global user.email {{ .Environment.GIT_CONFIG_NAME }}
+          command: |
+            git config user.email "naturalclar.ci-build@example.com"
+            git config user.name "naturalclar.ci-build"
       - run:
           name: Deploy to Github Pages
           command: yarn deploy
