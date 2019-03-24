@@ -38,6 +38,12 @@ jobs:
           keys:
             - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}
       - run:
+          name: Set up Git Config Email
+          command: git config --global user.email {{ .Environment.GIT_CONFIG_EMAIL }}
+      - run:
+          name: Set up Git Config Name
+          command: git config --global user.email {{ .Environment.GIT_CONFIG_NAME }}
+      - run:
           name: Deploy to Github Pages
           command: yarn deploy
 workflows:
