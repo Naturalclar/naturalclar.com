@@ -17,10 +17,10 @@ jobs:
       - prepare
       - restore_cache:
           keys:
-            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}-{{ checksum "deps.txt" }}
-            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-develop-{{ checksum "deps.txt" }}
+            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}
+            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-develop
       - run:
-          name: Instal dependencies
+          name: Install dependencies
           command: yarn
       - run:
           name: Buiuld Gatsby Page
@@ -28,7 +28,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}-{{ checksum "deps.txt" }}
+          key: v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}
   deploy:
     executor:
       name: default
@@ -36,7 +36,7 @@ jobs:
       - prepare
       - restore_cache:
           keys:
-            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}-{{ checksum "deps.txt" }}
+            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}
       - run:
           name: Deploy to Github Pages
           command: yarn deploy
@@ -51,4 +51,4 @@ workflows:
           filters:
             branches:
               only:
-                - /^(master)\/.*/
+                - /^(master)/
